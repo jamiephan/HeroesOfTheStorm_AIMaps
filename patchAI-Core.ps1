@@ -50,6 +50,7 @@ Get-ChildItem "./_s2ma_repo/maps" | ForEach-Object {
   if ($_.Name -eq "Try Me Mode.stormmap") { continue }
   if ($_.Name -eq "Tutorial.stormmap") { continue }
   if ($_.Name -eq "Tutorial Map Mechanics.stormmap") { continue }
+  if ($_.Name -eq "Heroes of the Storm Veteran Challenges.stormmap") { continue }
   
   $mapName = $_.BaseName
   $mapFile = $_.Name
