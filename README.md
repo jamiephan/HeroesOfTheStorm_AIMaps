@@ -1,6 +1,10 @@
 # HeroesOfTheStorm_AIMaps
 Maps from the jamiephan/HeroesOfTheStorm_S2MA repo patched with AI included!
 
+# Running the maps
+
+If you would like to run the map in ./maps, please refer to https://jamiephan.github.io/HeroesOfTheStorm_TryMode2.0/install.html
+
 # Directories
 
 - [./maps](./maps)
