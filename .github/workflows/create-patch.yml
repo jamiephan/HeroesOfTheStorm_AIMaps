@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Patching AI
         run: |
-          ./patchAI.ps1
+          ./patchAI-Core.ps1
       - name: Push Changes to Github
         run: |
           # Check if tree is not clean
