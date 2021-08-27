@@ -1,0 +1,30 @@
+name: Patch AI with s2ma repo
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+jobs:
+  patch-ai:
+    name: Patch AI with s2ma repo
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Patching AI
+        run: |
+          ./patchAI.ps1
+      - name: Push Changes to Github
+        run: |
+          # Check if tree is not clean
+          if($(&git status --porcelain) -ne $null) {
+            $date = Get-Date -Format "MM/dd/yyyy HH:mm K"
+            git config --global user.name 'Jamie Phan'
+            git config --global user.email '9488815+jamiephan@users.noreply.github.com'
+
+            git add "."
+
+            git commit -m "Updated Map Files at $date"
+            git push
+          } else {
+            Write-Output "No changes have been made to git. No updates were found"
+          }
