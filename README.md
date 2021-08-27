@@ -31,17 +31,11 @@ Windows:
 
 - Simply run `powershell -File patchAI.ps1` and wait for all the maps generated!
 
-Linux:
-
-- Install [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1)
-- Run `chmod +x patchAI-Linux.ps1`
-- Run `./patchAI-Linux.ps1`
-
 ## Modification
 
 Right now, only the AI configuration present in [./maps](./maps) are set.
 
-However, you can add or remove configurations in the [patchAI.ps1](./patchAI.ps1) (or [patchAI-Linux.ps1](./patchAI-Linux.ps1) if you are using Linux)
+However, you can add or remove configurations in the [patchAI.ps1](./patchAI.ps1).
 
 For example: 
 
@@ -56,7 +50,7 @@ You can change any configuration you like, e.g
 
 ``PatchAI $mapPath "./maps/3v4/$mapFile" "2,3,6,7,8,9"``
 
-Then run the [patchAI.ps1](./patchAI.ps1) (or [patchAI-Linux.ps1](./patchAI-Linux.ps1) if you are using Linux) again!
+Then run the [patchAI.ps1](./patchAI.ps1) again!
 
 ## S2MA
 
