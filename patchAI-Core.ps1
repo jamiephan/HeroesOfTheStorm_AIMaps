@@ -55,40 +55,50 @@ Get-ChildItem "./_s2ma_repo/maps" | ForEach-Object {
   $mapFile = $_.Name
   $mapPath = $_.FullName
 
+
+  # Generate Comps
+
+  foreach ($t1 in 1..5) {
   
-  # Fair Game
+    # Generate Team 1 Player Array
+    $t1Arr = @()
+    for ($t1n = 2 ; $t1n -le $t1 ; $t1n++) {
+      $t1Arr += $t1n
+    }
+    $t1ArrStr = $t1Arr -join ","
+  
+    foreach ($t2 in 1..5) {
+  
+      # Generate Team 1 Player Array
+      $t2Arr = @()
+      for ($t2n = 1 ; $t2n -le $t2 ; $t2n++) {
+        $t2Arr += ($t2n + 5)
+      }
+      $t2ArrStr = $t2Arr -join ","
+  
+      # =======
+      $versesString = -join ($t1, "v", $t2)
+      $listString = $t2ArrStr
+      if ($t1ArrStr) {
+        $listString = ($t1ArrStr, $t2ArrStr) -join ","
+      }    
+      Write-Output "Patching: $mapName ($versesString)"
+      PatchAI $mapPath "./maps/$versesString/$mapFile" "$listString"
+      
+    }
+  
+  }
+
+  # Spectator Mode
   Write-Output "Patching: $mapName (spectator)"
   PatchAI $mapPath "./maps/spectator/$mapFile" 1..10
-  Write-Output "Patching: $mapName (5v5)"
-  PatchAI $mapPath "./maps/5v5/$mapFile" 2..10
-  Write-Output "Patching: $mapName (4v4)"
-  PatchAI $mapPath "./maps/4v4/$mapFile" "2,3,4,6,7,8,9"
-  Write-Output "Patching: $mapName (3v3)"
-  PatchAI $mapPath "./maps/3v3/$mapFile" "2,3,6,7,8"
-  Write-Output "Patching: $mapName (2v2)"
-  PatchAI $mapPath "./maps/2v2/$mapFile" "2,6,7"
-  Write-Output "Patching: $mapName (1v1)"
-  PatchAI $mapPath "./maps/1v1/$mapFile" "6"
 
-  # Unfair Game KEKW: 1vX
-  Write-Output "Patching: $mapName (1v2)"
-  PatchAI $mapPath "./maps/1v2/$mapFile" "6,7"
-  Write-Output "Patching: $mapName (1v3)"
-  PatchAI $mapPath "./maps/1v3/$mapFile" "6,7,8"
-  Write-Output "Patching: $mapName (1v4)"
-  PatchAI $mapPath "./maps/1v4/$mapFile" "6,7,8,9"
-  Write-Output "Patching: $mapName (1v5)"
-  PatchAI $mapPath "./maps/1v5/$mapFile" "6,7,8,9,10"
+  
+  # === Add Your Configuration Here ===
 
-  # Unfair Game KEKW: Xv1
-  Write-Output "Patching: $mapName (5v1)"
-  PatchAI $mapPath "./maps/5v1/$mapFile" "2,3,4,5,6"
-  Write-Output "Patching: $mapName (4v1)"
-  PatchAI $mapPath "./maps/4v1/$mapFile" "2,3,4,6"
-  Write-Output "Patching: $mapName (3v1)"
-  PatchAI $mapPath "./maps/3v1/$mapFile" "2,3,6"
-  Write-Output "Patching: $mapName (2v1)"
-  PatchAI $mapPath "./maps/2v1/$mapFile" "2,6"
+
+  # ===================================
+
 }
 
 Remove-Item "./_s2ma_repo" -Force -Recurse
