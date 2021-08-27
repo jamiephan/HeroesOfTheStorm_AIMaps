@@ -38,7 +38,7 @@ function PatchAI ($mapPath, $savePath, $aiPlayers) {
   Copy-Item -Path $mapPath -Destination $savePath -Force
 
   Start-Process -WindowStyle Normal "$mpqEditor" -Wait -ArgumentList "add `"$savePath`" `"./MapInfo`" MapInfo"
-  Copy-Item -Path "./MapInfo" -Destination "$savePath.MapInfo" -Force
+  
   Remove-Item -Force "./MapInfo"
 
 }
