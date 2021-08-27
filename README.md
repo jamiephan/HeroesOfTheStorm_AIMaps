@@ -1,11 +1,11 @@
 # HeroesOfTheStorm_AIMaps
 Maps from the jamiephan/HeroesOfTheStorm_S2MA repo patched with AI included!
 
-# Running the maps
+## Running the maps
 
 If you would like to run the map in ./maps, please refer to https://jamiephan.github.io/HeroesOfTheStorm_TryMode2.0/install.html
 
-# Directories
+## Directories
 
 - [./maps](./maps)
   - [1v1](./maps/1v1)
@@ -25,7 +25,7 @@ If you would like to run the map in ./maps, please refer to https://jamiephan.gi
 
 
 
-# Generate yourself
+## Generate yourself
 
 Windows: 
 
@@ -37,7 +37,7 @@ Linux:
 - Run `chmod +x patchAI-Linux.ps1`
 - Run `./patchAI-Linux.ps1`
 
-# Modification
+## Modification
 
 Right now, only the AI configuration present in [./maps](./maps) are set.
 
@@ -58,7 +58,7 @@ You can change any configuration you like, e.g
 
 Then run the [patchAI.ps1](./patchAI.ps1) (or [patchAI-Linux.ps1](./patchAI-Linux.ps1) if you are using Linux) again!
 
-# S2MA
+## S2MA
 
 The Maps in this repo are based on the repo [jamiephan/HeroesOfTheStorm_S2MA](https://github.com/jamiephan/HeroesOfTheStorm_S2MA) and simply modified the files to add AI into the maps.
 
