@@ -54,3 +54,9 @@ You can change any configuration you like, e.g
 
 Then run the [patchAI.ps1](./patchAI.ps1) (or [patchAI-Linux.ps1](./patchAI-Linux.ps1) if you are using Linux) again!
 
+# S2MA
+
+The Maps in this repo are based on the repo [jamiephan/HeroesOfTheStorm_S2MA](https://github.com/jamiephan/HeroesOfTheStorm_S2MA) and simply modified the files to add AI into the maps.
+
+
+
