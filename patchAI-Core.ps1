@@ -47,10 +47,10 @@ function PatchAI ($mapPath, $savePath, $aiPlayers) {
 
 Get-ChildItem "./_s2ma_repo/maps" | ForEach-Object {
   # Nope.
-  if ($_.Name -eq "Try Me Mode.stormmap") { continue }
-  if ($_.Name -eq "Tutorial.stormmap") { continue }
-  if ($_.Name -eq "Tutorial Map Mechanics.stormmap") { continue }
-  if ($_.Name -eq "Heroes of the Storm Veteran Challenges.stormmap") { continue }
+  if ($_.Name -eq "Try Me Mode.stormmap") { break }
+  if ($_.Name -eq "Tutorial.stormmap") { break }
+  if ($_.Name -eq "Tutorial Map Mechanics.stormmap") { break }
+  if ($_.Name -eq "Heroes of the Storm Veteran Challenges.stormmap") { break }
   
   $mapName = $_.BaseName
   $mapFile = $_.Name
