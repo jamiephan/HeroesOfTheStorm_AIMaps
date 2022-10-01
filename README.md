@@ -61,6 +61,16 @@ Right now, only the AI configuration present in [./maps](./maps) are set. Howeve
 
 >Note: If you replace yourself with AI, you will become spectator mode.
 
+### PVE Maps:
+
+PVE Maps like Escape from Braxis or Deadman's Stand uses a different type of patch mode. You will need to specify a boolean type at the end of the parameter:
+
+e.g `$isPvE = true`
+
+> Note: Mixing it wil normal maps may have unexpected results.
+
+
+
 ### Example 1:
 
 **Configuration:**
@@ -68,6 +78,7 @@ Right now, only the AI configuration present in [./maps](./maps) are set. Howeve
 - You: Spectator
 - Blue Team: 1 AI
 - Red Team: 5 AI
+- Non-PVE Map: `$isPvE = false`
 
 **Outcome:**
 
@@ -75,7 +86,7 @@ You become spectator mode, watching AI 1v5.
 
 **Code:**
 
-`PatchAI $mapPath "./maps/spectator-1v5/$mapFile" "1,6,7,8,9,10"`
+`PatchAI $mapPath "./maps/spectator-1v5/$mapFile" "1,6,7,8,9,10" $isPvE`
 
 This means that it will generate AI for Player **1,6,7,8,9,10**
 
@@ -87,6 +98,7 @@ This means that it will generate AI for Player **1,6,7,8,9,10**
 - You: Spectator
 - Blue Team: 3 AI
 - Red Team: 4 AI
+- PVE Map: `$isPvE = true`
 
 **Outcome:**
 
@@ -94,7 +106,7 @@ You become spectator mode, watching AI 3v4.
 
 **Code:**
 
-`PatchAI $mapPath "./maps/spectator-3v4/$mapFile" "1,2,3,6,7,8,9"`
+`PatchAI $mapPath "./maps/spectator-3v4/$mapFile" "1,2,3,6,7,8,9" $isPvE`
 
 This means that it will generate AI for Player **1,2,3,6,7,8,9**
 

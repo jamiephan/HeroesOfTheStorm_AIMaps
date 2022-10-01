@@ -11,36 +11,54 @@ Remove-Item "./mpqeditor" -Force -Recurse
 $mpqEditor = "./MPQEditor.exe"
 
 
-function PatchAI ($mapPath, $savePath, $aiPlayers) {
+function PatchAI ($mapPath, $savePath, $aiPlayers, $isPvE) {
 
   if (Test-Path "./MapInfo") {
     Remove-Item -Force "./MapInfo"
   }
   Start-Process -WindowStyle Hidden "$mpqEditor" -Wait -ArgumentList "extract `"$mapPath`" MapInfo"
-  $byteString = $(Get-Content "./MapInfo" -Raw -Encoding Byte).ForEach('ToString', 'X') -join ' '
-  
-  # Invoke-Expression, yikes...
-  foreach ($i in (Invoke-Expression $aiPlayers)) {
-    $player = $i.ToString('X')
-    if ($i -le 5) {
-      $byteString = $byteString -replace "\b$player 1 0 0 0 2 0 0 0 50 72 6F 74 0 0 0 0 0\b", "$player 2 0 0 0 2 0 0 0 50 72 6F 74 0 0 0 0 0"
+
+  if (Test-Path "./MapInfo") {
+    $byteString = $(Get-Content "./MapInfo" -Raw -Encoding Byte).ForEach('ToString', 'X') -join ' '
+
+    # PvE Mode
+    if ($isPvE) {
+      Write-Output "Using PVE Patch Mode"
+      foreach ($i in (Invoke-Expression $aiPlayers)) {
+        $player = $i.ToString('X')
+        $byteString = $byteString -replace "\b$player 1 0 0\b", "$player 2 0 0"
+      }
     }
     else {
-      $byteString = $byteString -replace "\b$player 1 0 0 0 6 0 0 0 50 72 6F 74 0 0 0 0 0\b", "$player 2 0 0 0 6 0 0 0 50 72 6F 74 0 0 0 0 0"
+      Write-Output "Using non-PVE Patch Mode"
+      # Invoke-Expression, yikes...
+      foreach ($i in (Invoke-Expression $aiPlayers)) {
+        $player = $i.ToString('X')
+        if ($i -le 5) {
+          $byteString = $byteString -replace "\b$player 1 0 0 0 2 0 0 0 50 72 6F 74 0 0 0 0 0\b", "$player 2 0 0 0 2 0 0 0 50 72 6F 74 0 0 0 0 0"
+        }
+        else {
+          $byteString = $byteString -replace "\b$player 1 0 0 0 6 0 0 0 50 72 6F 74 0 0 0 0 0\b", "$player 2 0 0 0 6 0 0 0 50 72 6F 74 0 0 0 0 0"
+        }
+        
+      }
+
     }
-  }
+    [byte[]] $newByteArray = -split $byteString -replace '^', '0x'
+    Set-Content "./MapInfo" -Encoding Byte -Value $newByteArray
 
-  [byte[]] $newByteArray = -split $byteString -replace '^', '0x'
-  Set-Content "./MapInfo" -Encoding Byte -Value $newByteArray
+    # Prevent no parent directory error
+    New-Item -Force "$savePath" | Out-Null
+    Copy-Item -Path $mapPath -Destination $savePath -Force
 
-  # Prevent no parent directory error
-  New-Item -Force "$savePath" | Out-Null
-  Copy-Item -Path $mapPath -Destination $savePath -Force
-
-  Start-Process -WindowStyle Normal "$mpqEditor" -Wait -ArgumentList "add `"$savePath`" `"./MapInfo`" MapInfo"
+    Start-Process -WindowStyle Normal "$mpqEditor" -Wait -ArgumentList "add `"$savePath`" `"./MapInfo`" MapInfo"
   
-  Remove-Item -Force "./MapInfo"
+    Remove-Item -Force "./MapInfo"
 
+  }
+  else {
+    Write-Error "Cannot find MapInfo file!"
+  }
 }
 
 Get-ChildItem "./_s2ma_repo/maps" | ForEach-Object {
@@ -49,7 +67,14 @@ Get-ChildItem "./_s2ma_repo/maps" | ForEach-Object {
   if ($_.Name -eq "Tutorial.stormmap") { return }
   if ($_.Name -eq "Tutorial Map Mechanics.stormmap") { return }
   if ($_.Name -eq "Heroes of the Storm Veteran Challenges.stormmap") { return }
-  
+
+  $isPveMap = $false
+
+  if ($_.Name -eq "Deadman's Stand (Heroic).stormmap") { $isPveMap = $true }
+  if ($_.Name -eq "Deadman's Stand.stormmap") { $isPveMap = $true }
+  if ($_.Name -eq "Escape From Braxis (Heroic).stormmap") { $isPveMap = $true }
+  if ($_.Name -eq "Escape From Braxis.stormmap") { $isPveMap = $true }
+
   $mapName = $_.BaseName
   $mapFile = $_.Name
   $mapPath = $_.FullName
@@ -82,7 +107,7 @@ Get-ChildItem "./_s2ma_repo/maps" | ForEach-Object {
         $listString = ($t1ArrStr, $t2ArrStr) -join ","
       }    
       Write-Output "Patching: $mapName ($versesString)"
-      PatchAI $mapPath "./maps/$versesString/$mapFile" "$listString"
+      PatchAI $mapPath "./maps/$versesString/$mapFile" "$listString" $isPveMap
       
     }
   
@@ -90,7 +115,7 @@ Get-ChildItem "./_s2ma_repo/maps" | ForEach-Object {
 
   # Spectator Mode
   Write-Output "Patching: $mapName (spectator)"
-  PatchAI $mapPath "./maps/spectator/$mapFile" 1..10
+  PatchAI $mapPath "./maps/spectator/$mapFile" 1..10 $isPveMap
 
   
   # === Add Your Configuration Here ===
