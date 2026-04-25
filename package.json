@@ -1,0 +1,25 @@
+{
+  "name": "heroesofthestorm_aimaps",
+  "version": "1.0.0",
+  "description": "Maps from the [jamiephan/HeroesOfTheStorm_S2MA](https://github.com/jamiephan/HeroesOfTheStorm_S2MA) repo patched with AI included!",
+  "main": "index.js",
+  "scripts": {
+    "ci": "node ./scripts/ci.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamiephan/HeroesOfTheStorm_AIMaps.git"
+  },
+  "keywords": [],
+  "author": "Jamie Phan",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/jamiephan/HeroesOfTheStorm_AIMaps/issues"
+  },
+  "homepage": "https://github.com/jamiephan/HeroesOfTheStorm_AIMaps#readme",
+  "dependencies": {
+    "@jamiephan/casclib": "^0.0.2",
+    "@jamiephan/stormlib": "^0.0.2"
+  }
+}

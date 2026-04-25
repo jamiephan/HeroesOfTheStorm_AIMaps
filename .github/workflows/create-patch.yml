@@ -1,7 +1,7 @@
 name: Patch AI with s2ma repo
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "20 */4 * * *"
   workflow_dispatch:
 jobs:
   patch-ai:
@@ -9,10 +9,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
       - name: Patching AI
         run: |
-          ./patchAI-Core.ps1
+          npm install
+          npm run ci
       - name: Push Changes to Github
         run: |
           # Check if tree is not clean
