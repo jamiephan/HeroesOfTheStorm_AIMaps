@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/jamiephan/HeroesOfTheStorm_AIMaps#readme",
   "dependencies": {
-    "@jamiephan/casclib": "^0.0.2",
-    "@jamiephan/stormlib": "^0.0.2"
+    "@jamiephan/casclib": "0.4.0",
+    "@jamiephan/stormlib": "0.4.0"
   }
 }
